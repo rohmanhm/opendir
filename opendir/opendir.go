@@ -12,7 +12,6 @@ import (
 // TODO: add test
 func Exec(filemanager string, path string, execArgs ...string) {
 	cmdArgs := append([]string{path}, execArgs...)
-	fmt.Println("Args", cmdArgs)
 	cmd := exec.Command(filemanager, cmdArgs...)
 	err := cmd.Start()
 
