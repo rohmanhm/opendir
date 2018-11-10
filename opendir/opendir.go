@@ -10,8 +10,10 @@ import (
 // filemanager is name of the program of each platform support via cli.
 // path is the destination of filemanager needs to open at.
 // TODO: add test
-func Exec(filemanager string, path string) {
-	cmd := exec.Command(filemanager, path)
+func Exec(filemanager string, path string, execArgs ...string) {
+	cmdArgs := append([]string{path}, execArgs...)
+	fmt.Println("Args", cmdArgs)
+	cmd := exec.Command(filemanager, cmdArgs...)
 	err := cmd.Start()
 
 	if err != nil {
@@ -19,7 +21,7 @@ func Exec(filemanager string, path string) {
 	}
 }
 
-// Open run action to open the filemanager by where executed program os from.
+// Open run action to open the filemanager by where executed program OS from.
 // TODO: add test
 func Open(path string) {
 	switch os := runtime.GOOS; os {
@@ -54,5 +56,5 @@ func OpenInLinux(path string) {
 // It's uses `open` from darwin cli.
 // TODO: add test
 func OpenInDarwin(path string) {
-	Exec("open", path+" -a finder")
+	Exec("open", path, "-a finder")
 }
