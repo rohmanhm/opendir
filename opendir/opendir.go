@@ -44,10 +44,10 @@ func OpenInWindows(path string) {
 }
 
 // OpenInLinux is exec the path from linux OS.
-// It's uses `nautilus` from linux cli.
+// It's uses `xdg-open` from linux cli.
 // TODO: add test
 func OpenInLinux(path string) {
-	Exec("nautilus", path)
+	Exec("xdg-open", path)
 }
 
 // OpenInDarwin is exec the path from darwin OS.
