@@ -20,7 +20,7 @@ const AppVersion = "0.1.3"
 
 // Usage cli message
 const Usage = `
-opendir is simple cross platform open directory.
+opendir is a simple cross platform open directory to filemanager.
 
 Usage:
   opendir [Flags] [directories...]
