@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"path/filepath"
 
-	opendir "github.com/rohmanhm/go-open-dir"
-	"github.com/rohmanhm/go-open-dir/util/path"
+	opendir "github.com/rohmanhm/opendir"
+	"github.com/rohmanhm/opendir/util/path"
 	"github.com/spf13/cobra"
 )
 

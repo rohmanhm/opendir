@@ -3,7 +3,7 @@ package app
 import (
 	"os"
 
-	"github.com/rohmanhm/go-open-dir/internal/cli/root"
+	"github.com/rohmanhm/opendir/internal/cli/root"
 )
 
 // Run cli

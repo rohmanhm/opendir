@@ -1,9 +1,9 @@
 package main
 
 import (
-	_ "github.com/rohmanhm/go-open-dir/internal/cli/root"
+	_ "github.com/rohmanhm/opendir/internal/cli/root"
 
-	"github.com/rohmanhm/go-open-dir/internal/cli/app"
+	"github.com/rohmanhm/opendir/internal/cli/app"
 )
 
 func main() {

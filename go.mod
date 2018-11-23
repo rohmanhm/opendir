@@ -1,4 +1,4 @@
-module github.com/rohmanhm/go-open-dir
+module github.com/rohmanhm/opendir
 
 require (
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
