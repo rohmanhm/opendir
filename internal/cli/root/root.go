@@ -1,6 +1,7 @@
 package root
 
 import (
+	"fmt"
 	"path/filepath"
 
 	opendir "github.com/rohmanhm/go-open-dir"
@@ -25,10 +26,15 @@ var Cmd = &Command{
 		var targetPath = utils.GetTargetPathFromArgs(args)
 		var fullPath = utils.ResolveFullPath(currentPath, targetPath)
 
-		opendirCfg := &opendir.Config{
-			Path: fullPath,
+		odir, err := opendir.New(fullPath)
+		if err != nil {
+			fmt.Println(err)
 		}
 
-		opendirCfg.Open()
+		err = odir.Open()
+
+		if err != nil {
+			fmt.Println(err)
+		}
 	},
 }
