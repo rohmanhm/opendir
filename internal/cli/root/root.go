@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 
 	opendir "github.com/rohmanhm/go-open-dir"
-	"github.com/rohmanhm/go-open-dir/internal/utils"
+	"github.com/rohmanhm/go-open-dir/util/path"
 	"github.com/spf13/cobra"
 )
 
@@ -23,8 +23,8 @@ var Cmd = &Command{
 			panic(err)
 		}
 
-		var targetPath = utils.GetTargetPathFromArgs(args)
-		var fullPath = utils.ResolveFullPath(currentPath, targetPath)
+		var targetPath = path.GetValueFromArray(args)
+		var fullPath = path.Resolve(currentPath, targetPath)
 
 		odir, err := opendir.New(fullPath)
 		if err != nil {
