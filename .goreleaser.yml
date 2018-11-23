@@ -1,3 +1,4 @@
+project_name: opendir
 before:
   hooks:
     - go mod download
