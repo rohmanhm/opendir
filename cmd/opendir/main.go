@@ -62,26 +62,38 @@ func main() {
 	var paths []string
 	paths = flag.Args()
 
-	// If no path specified in args
-	// Open the current directory
+	// If there is no path
+	// Use the current directory
 	if len(paths) < 1 {
-		paths = append(paths, "./")
+		paths = []string{"./"}
 	}
 
 	var currentPath, err = filepath.Abs("./")
 	if err != nil {
-		panic(err)
+		fmt.Printf("could not get the current path: %v", err)
+		os.Exit(4)
 	}
 
+	err = openPaths(currentPath, paths)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+// openPaths is open multiple directory path
+func openPaths(currentPath string, paths []string) error {
 	for _, path := range paths {
 		err := openPath(currentPath, path)
 
 		if err != nil {
-			fmt.Println(err)
+			fmt.Printf("\n%v\n", err)
 		}
 	}
+
+	return nil
 }
 
+// openPath is open single directory path
 func openPath(currentPath string, targetPath string) error {
 	fullPath := path.Resolve(currentPath, targetPath)
 
