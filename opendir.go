@@ -20,17 +20,38 @@ type Config struct {
 	Path string
 }
 
+// ExecString return execf isolated with config path
+func (c *Config) ExecString() string {
+	return fmt.Sprintf(c.execf, c.Path)
+}
+
+// ExecArray get execf full string command splitted in array
+func (c *Config) ExecArray() []string {
+	return strings.Split(c.ExecString(), " ")
+}
+
+// AppName get the app name from execf
+func (c *Config) AppName() string {
+	if len(c.ExecArray()) > 0 {
+		return c.ExecArray()[0]
+	}
+
+	return ""
+}
+
+// RestArgs get the rest args from execf
+func (c *Config) RestArgs() []string {
+	if len(c.ExecArray()) > 1 {
+		return c.ExecArray()[1:]
+	}
+
+	return []string{}
+}
+
 // Open the filemanager
 // TODO: add test
 func (c *Config) Open() error {
-	cmdStrArr := strings.Split(
-		fmt.Sprintf(c.execf, c.Path), // full cmd string command
-		" ")
-
-	cmd := exec.Command(
-		cmdStrArr[0],     // put the cmd name
-		cmdStrArr[1:]..., // put the rest of cmd args
-	)
+	cmd := exec.Command(c.AppName(), c.RestArgs()...)
 
 	output, err := cmd.CombinedOutput()
 	if err != nil {
