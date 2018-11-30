@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sync"
 
 	"github.com/rohmanhm/opendir"
 	"github.com/rohmanhm/opendir/util/path"
@@ -82,11 +83,30 @@ func main() {
 
 // openPaths is open multiple directory path
 func openPaths(currentPath string, paths []string) error {
+	var wg sync.WaitGroup
+	errs := make(chan error, len(paths))
 	for _, path := range paths {
-		err := openPath(currentPath, path)
+		wg.Add(1)
+		go func(cp, p string) {
+			defer wg.Done()
+			err := openPath(cp, p)
+			if err != nil {
+				errs <- err
+			}
+		}(currentPath, path)
+	}
 
-		if err != nil {
-			fmt.Printf("\n%v\n", err)
+	go func() {
+		wg.Wait()
+		close(errs)
+	}()
+
+	for i := 0; i < len(paths); i++ {
+		select {
+		case err := <-errs:
+			if err != nil {
+				fmt.Println(err)
+			}
 		}
 	}
 
